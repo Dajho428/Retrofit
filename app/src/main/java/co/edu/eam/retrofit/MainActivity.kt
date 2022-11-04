@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity(),OnQueryTextListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: DogAdapter
     private val dogImages = mutableListOf<String>()
+    val  retrofit = RetrofitMain().retrofit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,14 +38,14 @@ class MainActivity : AppCompatActivity(),OnQueryTextListener {
         binding.recyclerViewDogs.adapter =  adapter
     }
 
-    private fun getRetrofit():Retrofit{
-        return Retrofit.Builder().baseUrl("https://dog.ceo/api/breed/")
-            .addConverterFactory(GsonConverterFactory.create()).build()
-    }
+//    fun getRetrofit():Retrofit{
+//        return Retrofit.Builder().baseUrl("https://dog.ceo/api/breed/")
+//            .addConverterFactory(GsonConverterFactory.create()).build()
+//    }
 
-    private fun searchByName(query:String){
+    fun searchByName(query:String){
         CoroutineScope(Dispatchers.IO).launch {
-            val call: Response<DogsResponse> = getRetrofit().create(APIService::class.java).getDogsByBreeds("$query/images")
+            val call: Response<DogsResponse> = retrofit.create(APIService::class.java).getDogsByBreeds("$query/images")
             val puppies: DogsResponse?=call.body()
             runOnUiThread{
                 if(call.isSuccessful){

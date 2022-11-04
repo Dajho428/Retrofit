@@ -8,6 +8,7 @@ import org.junit.runner.RunWith
 
 import org.junit.Assert.*
 
+
 /**
  * Instrumented test, which will execute on an Android device.
  *
@@ -21,4 +22,6 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("co.edu.eam.retrofit", appContext.packageName)
     }
+
+
 }
